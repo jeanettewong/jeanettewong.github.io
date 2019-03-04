@@ -43,6 +43,7 @@ blocks: [
 ["r", "Data for %s", "collectEventData", "message"],
 ["r", "Content of message %s", "getMessageContent", ""],
 [" ", "Register event %s", "registerEventListener", "message"]
+]
 };
 ScratchExtensions.register("Discord", descriptor, ext);
 })({});
