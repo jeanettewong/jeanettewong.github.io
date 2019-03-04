@@ -1,6 +1,6 @@
 (function(ext) {
 var client;
-var messages = [];
+var eventData = {};
 ext._shutdown = function() {};
 ext._getStatus = function() {
 return {status: 2, msg: "Ready"};
@@ -13,15 +13,21 @@ client.on("message", function(m) {
 messages.push(m);
 });
 };
-ext.onmessage = function() {
-if (messages.length === 0) return false;
-messages = [];
+ext.on = function(event) {
+if (!eventData[event]) eventData[event] = [];
+if (eventData[event].length === 0) return false;
 return true;
+};
+ext.collectEventData = function(event) {
+var data = eventData[event] || [];
+if (eventData[event]) eventData[event] = [];
+return data;
 };
 var descriptor = {
 blocks: [
 [" ", "Initialize the bot with token %s", "initialize", "Bot token here"],
-["h", "When a message is sent", "onmessage"]
+["h", "When %s occurs", "on", "message"],
+["r", "Data for %s", "collectEventData", "message"]
 ]
 };
 ScratchExtensions.register("Discord", descriptor, ext);
