@@ -48,9 +48,7 @@ ext.sendMessage = function(m, c) {
 client.channels.get(JSON.parse(c).id).send(m);
 };
 ext.getChannel = function(o) {
-  try {
-return /*structures.channel(client.channels.get(*/JSON.parse(o).channel/*))*/;
-  } catch (e) {return e.message;}
+return structures.channel(client.channels.get(JSON.parse(o).channel));
 };
 var descriptor = {
 blocks: [
