@@ -5,6 +5,9 @@ var eventData = {};
 var structures = {
 message: function(m) {
 return JSON.stringify({content: m.content, id: m.id, channel: m.channel.id, guild: m.guild.id, author: m.author.id});
+},
+channel: function(c) {
+return JSON.stringify({name: c.name, id: c.id, guild: c.guild.id});
 }
 };
 var structureMappings = {
@@ -42,7 +45,10 @@ ext.getMessageContent = function(m) {
 return JSON.parse(m).content;
 };
 ext.sendMessage = function(c, m) {
-client.channels.get(JSON.parse(c)).send(m);
+client.channels.get(JSON.parse(c).id).send(m);
+};
+ext.getChannel = function(o) {
+return structures.channel(client.channels.get(JSON.parse(o).channel));
 };
 var descriptor = {
 blocks: [
@@ -51,7 +57,8 @@ blocks: [
 ["r", "Data for %s", "collectEventData", "message"],
 ["r", "Content of message %s", "getMessageContent", ""],
 [" ", "Register event %s", "registerEventListener", "message"],
-[" ", "Send message %s in channel %s", "sendMessage", "message here", "channel here"]
+[" ", "Send message %s in channel %s", "sendMessage", "message here", "channel here"],
+["r", "Channel of %s", "getChannel", "object here"]
 ]
 };
 ScratchExtensions.register("Discord", descriptor, ext);
