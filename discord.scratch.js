@@ -44,7 +44,7 @@ return data[0];
 ext.getMessageContent = function(m) {
 return JSON.parse(m).content;
 };
-ext.sendMessage = function(c, m) {
+ext.sendMessage = function(m, c) {
 client.channels.get(JSON.parse(c).id).send(m);
 };
 ext.getChannel = function(o) {
