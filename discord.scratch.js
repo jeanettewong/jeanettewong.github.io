@@ -49,7 +49,7 @@ client.channels.get(JSON.parse(c).id).send(m);
 };
 ext.getChannel = function(o) {
   try {
-return structures.channel(client.channels.get(JSON.parse(o).channel));
+return /*structures.channel(client.channels.get(*/JSON.parse(o).channel/*))*/;
   } catch (e) {return e.message;}
 };
 var descriptor = {
