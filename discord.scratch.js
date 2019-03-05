@@ -41,13 +41,17 @@ return data[0];
 ext.getMessageContent = function(m) {
 return JSON.parse(m).content;
 };
+ext.sendMessage = function(c, m) {
+client.channels.get(JSON.parse(c)).send(m);
+};
 var descriptor = {
 blocks: [
 [" ", "Initialize the bot with token %s", "initialize", "Bot token here"],
 ["h", "When %s occurs", "on", "message"],
 ["r", "Data for %s", "collectEventData", "message"],
 ["r", "Content of message %s", "getMessageContent", ""],
-[" ", "Register event %s", "registerEventListener", "message"]
+[" ", "Register event %s", "registerEventListener", "message"],
+[" ", "Send message %s in channel %s", "sendMessage", "message here", "channel here"]
 ]
 };
 ScratchExtensions.register("Discord", descriptor, ext);
